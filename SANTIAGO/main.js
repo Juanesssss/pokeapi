@@ -85,3 +85,39 @@ document.getElementById("water").addEventListener("click", async () => {
   waterPokemonData.forEach(createPokemonCard);
 });
 window.addEventListener("load", loadWaterPokemon);
+
+
+
+//######################################################################################
+
+///algun intento pero no se como ponerlo en el codigo 
+async function getPokemonData(){
+  const randomPokemon1 = Math.floor(Math.random()* 898)+ 1; //Genera un random (eso creo)
+  const randomPokemon2 = Math.floor(Math.random()* 898)+ 1;
+
+  const response1 = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomPokemon1}`);
+  const data1 = await response1.json();
+
+  const response2 = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomPokemon2}`);
+  const data2 = await response2.json();
+
+  return [data1, data2];
+}
+
+function sumAttackValue(pokemon1, pokemon2){
+  const attack1 = pokemon1.stats[4].base_stat;
+  const attack2 = pokemon2.stats[4].base_stat;
+
+  return attack1 + attack2;
+}
+
+const resultElement = document.getElementById("result");
+
+async function updateResult(){
+  const [pokemon1, pokemon2]= await getPokemonData();
+  const totalAttack = sumAttackValues(pokemon1, pokemon2);
+  resultElement.textContent = `La suma de los ataques es: ${totalAttack}`;
+}
+
+updateResult();
+window.addEventListener("load", updateResult);
