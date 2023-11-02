@@ -8,30 +8,22 @@ function getPokemonData(){
     .catch(e => console.error(new Error(e)));//posible error
 }
 document.addEventListener('DOMContentLoaded', () =>{//'DOMContentLoaded' hace que se cargue todo a lo ultimno de la pagina es como un evento load 
-    const pokemon1 = getPokemonData();//se crea la constante para traer los resultados de la url de un pokemon 
-    const pokemon2 = getPokemonData();
-    const pokemon3 = getPokemonData();
+    const pokemonCards = document.querySelectorAll('.pokemon-card');//se crea la constante para traer los resultados de la url de un pokemon 
 
+    Promise.all([getPokemonData(), getPokemonData(), getPokemonData()])// la promesa para traer el dato especifico del pokemon que se quiere sumar de la url 
+        .then((results) => {
+            results.forEach((result, index) => {
+                const card = pokemonCards[index];
+                const nameElement = card.querySelector(`#pokemon-${index + 1}-name`);
+                const attackElement = card.querySelector(`#pokemon-${index + 1}-attack`);
 
-    Promise.all([pokemon1, pokemon2, pokemon3])// la promesa para traer el dato especifico del pokemon que se quiere sumar de la url 
-    .then((results) =>{
-        const pok1= results[0].name;
-        const attack1 = results[0].stats[1].base_stat;
+                nameElement.textContent = result.name;
+                attackElement.textContent = result.stats[1].base_stat;
+            });
 
-        const pok2= results[1].name;
-        const attack2 = results[1].stats[1].base_stat;
-
-        const pok3= results[2].name;
-        const attack3 = results[2].stats[1].base_stat;
-
-        const totalAttack = attack1 + attack2 + attack3;
-//mostramos todo en consola, aun no se como mostrar 
-        console.log('nombre: ',pok1, ' ###','ataque : ', attack1);
-        console.log('nombre: ',pok2, ' ###','ataque : ', attack2);
-        console.log('nombre: ',pok3, ' ###','ataque  : ', attack3);
-        console.log('Suma  : ', totalAttack);
-    })
-//posible error
-    .catch(e => console.error(new Error(e)));
-    
-})
+            const totalAttack = results.reduce((total, result) => total + result.stats[1].base_stat, 0);
+            const totalAttackValue = document.getElementById('total-attack-value');
+            totalAttackValue.textContent = totalAttack;
+        })
+        .catch(e => console.error(new Error(e)));
+});
