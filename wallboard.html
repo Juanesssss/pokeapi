@@ -52,38 +52,7 @@
   </style>
  </head>
  <body>
-  <h1>This is an example dashboard/wallboard for <a href="https://aws.amazon.com/connect/">Amazon Connect</a></h1>
-  <p>
-   In the Javascript above, set the &quot;API_URI&quot; variable to the
-   following:
-  </p>
-  <p style="margin-left: 20px; font-weight: bold; font-style: italic;">
-   https://API_Gateway_Invoke_URL/wallboard/?Wallboard=Wallboard_Identifier
-  </p>
-  <p>
-   Where &quot;API_Gateway_Invoke_URL&quot; is found in the
-   <A href="https://aws.amazon.com/api-gateway/">API Gateway</A> console and the
-   &quot;Wallboard_Identifer&quot; is what you've called your dashboard/wallboard
-   in the <a href="https://aws.amazon.com/dynamodb/">DynamoDB</a> table. This
-   will have been configured in the YAML template when the dashboard/wallboard
-   was created.
-  </p>
-  <p>
-   The API returns a formatted HTML table that it places in the
-   &quot;wallboard&quot; div below. Colours for cells are set in the
-   dashboard/wallboard definition and are automatically returned in the table -
-   however, you can choose to use additional styles in the calling HTML page to
-   format the table. For example, you may choose to centre the data in each table
-   cell. This is deliberately done so that customers may display their
-   dashboard/wallboard however they like or can embed it in any HTML page as
-   required. Individual cells have unique classes and labels; within each cell
-   there is a separate div for static text and data. You'll find brief examples of
-   this in the HTML &lt;head&gt; section above.
-  </p>
-  <p>
-   You may also adjust the refresh interval by changing the
-   &quot;RefreshInterval&quot; variable in the code above.
-  </p>
+
   <div id="wallboard"></div>
   <script type="text/javascript">
    GetWallboard();
